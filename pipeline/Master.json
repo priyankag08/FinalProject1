@@ -59,7 +59,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"storedProcedureName": "[sync].[UpdateQueueStatus]",
+								"storedProcedureName": "[UI].[SyncUpdateQueueStatus]",
 								"storedProcedureParameters": {
 									"QID": {
 										"value": {
@@ -101,7 +101,7 @@
 							"typeProperties": {
 								"source": {
 									"type": "SqlServerSource",
-									"sqlReaderStoredProcedureName": "[sync].[GetClientCredentials]",
+									"sqlReaderStoredProcedureName": "[UI].[SyncGetClientCredentials]",
 									"storedProcedureParameters": {
 										"TID": {
 											"type": "Int32",
