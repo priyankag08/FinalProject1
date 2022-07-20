@@ -1288,7 +1288,7 @@
 							},
 							"cases": [
 								{
-									"value": "New Design",
+									"value": "Entire Design",
 									"activities": [
 										{
 											"name": "Design",
@@ -1484,7 +1484,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "[[sync].[UpdateQueueStatus]",
+							"storedProcedureName": "[[UI].[SyncUpdateQueueStatus]",
 							"storedProcedureParameters": {
 								"QID": {
 									"value": {
@@ -1612,7 +1612,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "SqlServerSource",
-								"sqlReaderStoredProcedureName": "[[UI].[SyncNextQueued]",
+								"sqlReaderStoredProcedureName": "[[dbo].[SyncNextQueued]",
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
@@ -1750,19 +1750,19 @@
 												"type": "Expression"
 											},
 											"ClientServerName": {
-												"value": "@activity('Lookup To Get Client Credentials').output.value[0].ServerName",
+												"value": "@activity('Lookup To Get Client Credentials').output.value[0].Client_ServerName",
 												"type": "Expression"
 											},
 											"ClientDBName": {
-												"value": "@activity('Lookup To Get Client Credentials').output.value[0].DBName",
+												"value": "@activity('Lookup To Get Client Credentials').output.value[0].Client_DB",
 												"type": "Expression"
 											},
 											"ClientUserName": {
-												"value": "@activity('Lookup To Get Client Credentials').output.value[0].UserName",
+												"value": "@activity('Lookup To Get Client Credentials').output.value[0].Client_UserName",
 												"type": "Expression"
 											},
 											"ClientPass": {
-												"value": "@activity('Lookup To Get Client Credentials').output.value[0].UserPassword",
+												"value": "@activity('Lookup To Get Client Credentials').output.value[0].Client_Password",
 												"type": "Expression"
 											},
 											"RequestType": {
