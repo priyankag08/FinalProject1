@@ -26,7 +26,7 @@
 			"connectionString": "Integrated Security=False;Data Source=@{linkedService().ClientServerName};Initial Catalog=@{linkedService().ClientDBName};User ID=@{linkedService().ClientUserNameLS};Password=@{linkedService().ClientPassLS}"
 		},
 		"connectVia": {
-			"referenceName": "SelfHostedIR",
+			"referenceName": "IRFinalProject",
 			"type": "IntegrationRuntimeReference"
 		}
 	}
