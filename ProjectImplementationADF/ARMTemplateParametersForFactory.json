@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ProjectImplementationADF"
+		},
+		"SourceSqlServerLS_connectionString": {
+			"value": ""
+		},
+		"Target_SqlServerLS_connectionString": {
+			"value": ""
+		},
+		"IRFinalProject_properties_typeProperties_linkedInfo_resourceId": {
+			"value": "/subscriptions/9ebde10a-058f-4892-8970-ba5813eb74e5/resourcegroups/demoresource/providers/Microsoft.DataFactory/factories/datafactorymainpro/integrationruntimes/integrationRuntimemain"
+		},
+		"SelfHostedIR_properties_typeProperties_linkedInfo_resourceId": {
+			"value": "/subscriptions/9ebde10a-058f-4892-8970-ba5813eb74e5/resourcegroups/demoresource/providers/Microsoft.DataFactory/factories/datafactorymainpro/integrationruntimes/integrationRuntimemain"
+		}
+	}
+}

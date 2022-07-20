@@ -1,0 +1,70 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ProjectImplementationADF"
+		},
+		"SourceSqlServerLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SourceSqlServerLS'"
+		},
+		"Target_SqlServerLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Target_SqlServerLS'"
+		},
+		"IRFinalProject_properties_typeProperties_linkedInfo_resourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/9ebde10a-058f-4892-8970-ba5813eb74e5/resourcegroups/demoresource/providers/Microsoft.DataFactory/factories/datafactorymainpro/integrationruntimes/integrationRuntimemain"
+		},
+		"SelfHostedIR_properties_typeProperties_linkedInfo_resourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/9ebde10a-058f-4892-8970-ba5813eb74e5/resourcegroups/demoresource/providers/Microsoft.DataFactory/factories/datafactorymainpro/integrationruntimes/integrationRuntimemain"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "ProjectImplementationADF_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"SourceSqlServerLS_connectionString": {
+						"value": "[parameters('SourceSqlServerLS_connectionString')]"
+					},
+					"Target_SqlServerLS_connectionString": {
+						"value": "[parameters('Target_SqlServerLS_connectionString')]"
+					},
+					"IRFinalProject_properties_typeProperties_linkedInfo_resourceId": {
+						"value": "[parameters('IRFinalProject_properties_typeProperties_linkedInfo_resourceId')]"
+					},
+					"SelfHostedIR_properties_typeProperties_linkedInfo_resourceId": {
+						"value": "[parameters('SelfHostedIR_properties_typeProperties_linkedInfo_resourceId')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
