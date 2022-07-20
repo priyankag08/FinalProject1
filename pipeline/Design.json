@@ -184,7 +184,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"sqlReaderQuery": {
-							"value": "@concat('declare @FDGID int\nset @FDGID = (select FormDesignGroupID from [UI].[FormDesignGroupMapping] where FormID = ',pipeline().parameters.FormDesignID,')\nselect * from UI.FormDesignGroup where FormDesignGroupID in (@FDGID)')",
+							"value": "@concat('declare @FDGID int\nset @FDGID = (select FormDesignGroupID from [UI].[FormDesignGroupMapping] where FormID = ',pipeline().parameters.FormDesignID,')\nselect * from UI.FormDesignGroup where FormDesignGroupID = @FDGID')",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
