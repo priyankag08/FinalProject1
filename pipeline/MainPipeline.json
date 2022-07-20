@@ -210,7 +210,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[sync].[UpdateQueueStatus]",
+					"storedProcedureName": "[UI].[SyncUpdateQueueStatus]",
 					"storedProcedureParameters": {
 						"QID": {
 							"value": {
