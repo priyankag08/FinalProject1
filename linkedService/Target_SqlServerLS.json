@@ -5,11 +5,11 @@
 		"parameters": {
 			"ClientServerName": {
 				"type": "String",
-				"defaultValue": "AZ-VDI-D1-262"
+				"defaultValue": "AZ-VDI-D1-267"
 			},
 			"ClientDBName": {
 				"type": "String",
-				"defaultValue": "B2_ClientDB"
+				"defaultValue": "eBS4_INT_QA2"
 			},
 			"ClientUserNameLS": {
 				"type": "String",
