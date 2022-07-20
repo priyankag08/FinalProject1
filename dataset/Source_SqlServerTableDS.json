@@ -9,7 +9,8 @@
 		"type": "SqlServerTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": ""
+			"schema": "dbo",
+			"table": "DesignSyncProcessQueue"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
