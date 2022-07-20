@@ -250,7 +250,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[UI].[SyncEnableTableProperties]"
+					"storedProcedureName": "[dbo].[SyncEnableTableProperties]"
 				},
 				"linkedServiceName": {
 					"referenceName": "Target_SqlServerLS",
