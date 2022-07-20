@@ -1,0 +1,33 @@
+{
+	"name": "Target_SqlServerLS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"ClientServerName": {
+				"type": "String",
+				"defaultValue": "AZ-VDI-D1-262"
+			},
+			"ClientDBName": {
+				"type": "String",
+				"defaultValue": "B2_ClientDB"
+			},
+			"ClientUserNameLS": {
+				"type": "String",
+				"defaultValue": "sa"
+			},
+			"ClientPassLS": {
+				"type": "String",
+				"defaultValue": "sa@123"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Data Source=@{linkedService().ClientServerName};Initial Catalog=@{linkedService().ClientDBName};User ID=@{linkedService().ClientUserNameLS};Password=@{linkedService().ClientPassLS}"
+		},
+		"connectVia": {
+			"referenceName": "SelfHostedIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

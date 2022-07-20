@@ -1,0 +1,183 @@
+{
+	"name": "CopyFormDesign_SqlServerTable_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Target_SqlServerLS",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"ClientServerName": {
+					"value": "@dataset().TargetServerName",
+					"type": "Expression"
+				},
+				"ClientDBName": {
+					"value": "@dataset().TargetDBName",
+					"type": "Expression"
+				},
+				"ClientUserNameLS": {
+					"value": "@dataset().TargetUserName",
+					"type": "Expression"
+				},
+				"ClientPassLS": {
+					"value": "@dataset().TargetPass",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"TargetServerName": {
+				"type": "string"
+			},
+			"TargetDBName": {
+				"type": "string"
+			},
+			"TargetUserName": {
+				"type": "string"
+			},
+			"TargetPass": {
+				"type": "string"
+			},
+			"TableName_DS": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "FormID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "FormName",
+				"type": "varchar"
+			},
+			{
+				"name": "DisplayText",
+				"type": "varchar"
+			},
+			{
+				"name": "IsActive",
+				"type": "bit"
+			},
+			{
+				"name": "Abbreviation",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TenantID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "AddedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "AddedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "UpdatedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "UpdatedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "IsMasterList",
+				"type": "bit"
+			},
+			{
+				"name": "DocumentDesignTypeID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Sequence",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DocumentLocationID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "IsAliasDesignMasterList",
+				"type": "bit"
+			},
+			{
+				"name": "UsesAliasDesignMasterList",
+				"type": "bit"
+			},
+			{
+				"name": "IsSectionLock",
+				"type": "bit"
+			},
+			{
+				"name": "MigrationID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "IsMigrated",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "IsMigrationOverriden",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "MigrationDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "SimplifyDesignVersionTypeID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "IsMDM",
+				"type": "bit"
+			},
+			{
+				"name": "MDMDSchemaName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MDMSchemaName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "HasRangeDocument",
+				"type": "bit"
+			},
+			{
+				"name": "RangeDocumentContainer",
+				"type": "varchar"
+			},
+			{
+				"name": "IsOverrideRelease",
+				"type": "bit"
+			}
+		],
+		"typeProperties": {
+			"schema": "UI",
+			"table": {
+				"value": "@dataset().TableName_DS",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

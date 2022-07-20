@@ -1,0 +1,17 @@
+{
+	"name": "DocumentRuleEventMap_SqlServerTableDS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SourceSqlServerLS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "TEMP",
+			"table": "DocumentRuleEventMap"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

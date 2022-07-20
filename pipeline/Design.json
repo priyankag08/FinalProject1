@@ -1,0 +1,434 @@
+{
+	"name": "Design",
+	"properties": {
+		"activities": [
+			{
+				"name": "FormDesign",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "@concat('select * from ui.FormDesign where FormID = ',pipeline().parameters.FormDesignID)",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "Set Identity_insert ui.FormDesign on",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"FormID"
+							]
+						},
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_SqlServerTableDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CopyFormDesign_SqlServerTable_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"TargetServerName": {
+								"value": "@pipeline().parameters.ServerName_Para",
+								"type": "Expression"
+							},
+							"TargetDBName": {
+								"value": "@pipeline().parameters.DBName_Para",
+								"type": "Expression"
+							},
+							"TargetUserName": {
+								"value": "@pipeline().parameters.UserName_Para",
+								"type": "Expression"
+							},
+							"TargetPass": {
+								"value": "@pipeline().parameters.Pass_Para",
+								"type": "Expression"
+							},
+							"TableName_DS": "FormDesign"
+						}
+					}
+				]
+			},
+			{
+				"name": "FormDesignGroupMapping",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "FormDesignGroup",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "@concat('select * from [UI].[FormDesignGroupMapping] where FormID = ',pipeline().parameters.FormDesignID)",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "Set Identity_insert ui.FormDesignGroupMapping on\n\nALTER TABLE [UI].[FormDesignGroupMapping]\nDROP CONSTRAINT FK_FormDesignGroupMapping_FormDesignGroup;\n\nALTER TABLE [UI].[FormDesignGroupMapping]\nDROP CONSTRAINT FK_FormDesignGroupMapping_FormDesignGroupMapping;",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"FormDesignGroupMappingID"
+							]
+						},
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_SqlServerTableDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CopyFormDesign_SqlServerTable_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"TargetServerName": {
+								"value": "@pipeline().parameters.ServerName_Para",
+								"type": "Expression"
+							},
+							"TargetDBName": {
+								"value": "@pipeline().parameters.DBName_Para",
+								"type": "Expression"
+							},
+							"TargetUserName": {
+								"value": "@pipeline().parameters.UserName_Para",
+								"type": "Expression"
+							},
+							"TargetPass": {
+								"value": "@pipeline().parameters.Pass_Para",
+								"type": "Expression"
+							},
+							"TableName_DS": "FormDesignGroupMapping"
+						}
+					}
+				]
+			},
+			{
+				"name": "FormDesignGroup",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "FormDesign",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "@concat('declare @FDGID int\nset @FDGID = (select FormDesignGroupID from [UI].[FormDesignGroupMapping] where FormID = ',pipeline().parameters.FormDesignID,')\nselect * from UI.FormDesignGroup where FormDesignGroupID = @FDGID')",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"FormDesignGroupID"
+							]
+						},
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_SqlServerTableDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CopyFormDesign_SqlServerTable_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"TargetServerName": {
+								"value": "@pipeline().parameters.ServerName_Para",
+								"type": "Expression"
+							},
+							"TargetDBName": {
+								"value": "@pipeline().parameters.DBName_Para",
+								"type": "Expression"
+							},
+							"TargetUserName": {
+								"value": "@pipeline().parameters.UserName_Para",
+								"type": "Expression"
+							},
+							"TargetPass": {
+								"value": "@pipeline().parameters.Pass_Para",
+								"type": "Expression"
+							},
+							"TableName_DS": "FormDesignGroup"
+						}
+					}
+				]
+			},
+			{
+				"name": "FormDesignType",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "FormDesignGroupMapping",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select * from [UI].[FormDesignType]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"FormDesignTypeID"
+							]
+						},
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_SqlServerTableDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CopyFormDesign_SqlServerTable_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"TargetServerName": {
+								"value": "@pipeline().parameters.ServerName_Para",
+								"type": "Expression"
+							},
+							"TargetDBName": {
+								"value": "@pipeline().parameters.DBName_Para",
+								"type": "Expression"
+							},
+							"TargetUserName": {
+								"value": "@pipeline().parameters.UserName_Para",
+								"type": "Expression"
+							},
+							"TargetPass": {
+								"value": "@pipeline().parameters.Pass_Para",
+								"type": "Expression"
+							},
+							"TableName_DS": "FormDesignType"
+						}
+					}
+				]
+			},
+			{
+				"name": "FormDesignMapping",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "FormDesignType",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "@concat('select * from [UI].[FormDesignMapping] where TargetDesignID = ',pipeline().parameters.FormDesignID)",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"FormDesignMapID"
+							]
+						},
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_SqlServerTableDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CopyFormDesign_SqlServerTable_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"TargetServerName": {
+								"value": "@pipeline().parameters.ServerName_Para",
+								"type": "Expression"
+							},
+							"TargetDBName": {
+								"value": "@pipeline().parameters.DBName_Para",
+								"type": "Expression"
+							},
+							"TargetUserName": {
+								"value": "@pipeline().parameters.UserName_Para",
+								"type": "Expression"
+							},
+							"TargetPass": {
+								"value": "@pipeline().parameters.Pass_Para",
+								"type": "Expression"
+							},
+							"TableName_DS": "FormDesignMapping"
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"ServerName_Para": {
+				"type": "string"
+			},
+			"DBName_Para": {
+				"type": "string"
+			},
+			"UserName_Para": {
+				"type": "string"
+			},
+			"Pass_Para": {
+				"type": "string"
+			},
+			"FormDesignID": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"DRID": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-07-20T10:12:38Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

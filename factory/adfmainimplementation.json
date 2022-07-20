@@ -1,0 +1,9 @@
+{
+	"name": "adfmainimplementation",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "cc09fa34-3a4a-470d-94ab-e05145ddabaf",
+		"tenantId": "57084445-e440-441f-bc3f-fabe8cbb2535"
+	}
+}

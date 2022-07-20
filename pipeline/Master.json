@@ -1,0 +1,186 @@
+{
+	"name": "Master",
+	"properties": {
+		"activities": [
+			{
+				"name": "Fetch Queued Record",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderStoredProcedureName": "[sync].[GetQueuedOrFailedRecord]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "Source_SqlServerTableDS",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Is Record Empty",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Fetch Queued Record",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@greater(activity('Fetch Queued Record').output.count,0)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Stored Procedure To Change Queue Status To InProgress",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[sync].[UpdateQueueStatus]",
+								"storedProcedureParameters": {
+									"QID": {
+										"value": {
+											"value": "@activity('Fetch Queued Record').output.value[0].QueueID",
+											"type": "Expression"
+										},
+										"type": "Int32"
+									},
+									"QStatus": {
+										"value": "2",
+										"type": "Int32"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "SourceSqlServerLS",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "Lookup To Get Client Credentials",
+							"type": "Lookup",
+							"dependsOn": [
+								{
+									"activity": "Stored Procedure To Change Queue Status To InProgress",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"sqlReaderStoredProcedureName": "[sync].[GetClientCredentials]",
+									"storedProcedureParameters": {
+										"TID": {
+											"type": "Int32",
+											"value": {
+												"value": "@activity('Fetch Queued Record').output.value[0].TenantID",
+												"type": "Expression"
+											}
+										}
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "Source_SqlServerTableDS",
+									"type": "DatasetReference"
+								},
+								"firstRowOnly": false
+							}
+						},
+						{
+							"name": "MainPipeline",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "Lookup To Get Client Credentials",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "MainPipeline",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"QID": {
+										"value": "@activity('Fetch Queued Record').output.value[0].QueueID",
+										"type": "Expression"
+									},
+									"FormDesignID": {
+										"value": "@activity('Fetch Queued Record').output.value[0].FormDesignID",
+										"type": "Expression"
+									},
+									"FormDesignVersionID": {
+										"value": "@activity('Fetch Queued Record').output.value[0].FormDesignVersionID",
+										"type": "Expression"
+									},
+									"ClientServerName": {
+										"value": "@activity('Lookup To Get Client Credentials').output.value[0].ServerName",
+										"type": "Expression"
+									},
+									"ClientDBName": {
+										"value": "@activity('Lookup To Get Client Credentials').output.value[0].DBName",
+										"type": "Expression"
+									},
+									"ClientUserName": {
+										"value": "@activity('Lookup To Get Client Credentials').output.value[0].UserName",
+										"type": "Expression"
+									},
+									"ClientPass": {
+										"value": "@activity('Lookup To Get Client Credentials').output.value[0].UserPassword",
+										"type": "Expression"
+									},
+									"RequestType": {
+										"value": "@activity('Fetch Queued Record').output.value[0].Type",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-07-18T08:00:20Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
