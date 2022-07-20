@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderStoredProcedureName": "[sync].[GetQueuedOrFailedRecord]",
+						"sqlReaderStoredProcedureName": "[UI].[SyncNextQueued]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
