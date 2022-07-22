@@ -4,20 +4,16 @@
 	"properties": {
 		"parameters": {
 			"ClientServerName": {
-				"type": "String",
-				"defaultValue": "AZ-VDI-D1-267"
+				"type": "String"
 			},
 			"ClientDBName": {
-				"type": "String",
-				"defaultValue": "eBS4_INT_QA2"
+				"type": "String"
 			},
 			"ClientUserNameLS": {
-				"type": "String",
-				"defaultValue": "sa"
+				"type": "String"
 			},
 			"ClientPassLS": {
-				"type": "String",
-				"defaultValue": "sa@123"
+				"type": "String"
 			}
 		},
 		"annotations": [],
@@ -26,7 +22,7 @@
 			"connectionString": "Integrated Security=False;Data Source=@{linkedService().ClientServerName};Initial Catalog=@{linkedService().ClientDBName};User ID=@{linkedService().ClientUserNameLS};Password=@{linkedService().ClientPassLS}"
 		},
 		"connectVia": {
-			"referenceName": "IRFinalProject",
+			"referenceName": "SelfHostedIR",
 			"type": "IntegrationRuntimeReference"
 		}
 	}
