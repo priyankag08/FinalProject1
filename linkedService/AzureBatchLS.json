@@ -1,0 +1,22 @@
+{
+	"name": "AzureBatchLS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBatch",
+		"typeProperties": {
+			"batchUri": "https://powershellbatchacc.eastus.batch.azure.com",
+			"poolName": "mypool",
+			"accountName": "powershellbatchacc",
+			"linkedServiceName": {
+				"referenceName": "AzureBlobStorageLS",
+				"type": "LinkedServiceReference"
+			},
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJjZTZiZWQ2Yy0wY2FmLTQ5OGMtYTI3MC05NGZiNmIwYTdkOTIiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "SelfHostedIR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
