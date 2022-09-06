@@ -15,6 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"command": "Get-AzureRmDataFactoryV2ActivityRun -ResourceGroupName \"SimplifyResource\" -DataFactoryName \"SimplifyDF\" -PipelineRunId \"84dd7676-b4e8-45a2-8c58-8681d26186c8\" -RunStartedAfter \"2022-09-05\" -RunStartedBefore \"2022-09-07\"",
 					"resourceLinkedService": {
 						"referenceName": "AzureBlobStorageLS",
 						"type": "LinkedServiceReference"
