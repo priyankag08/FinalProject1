@@ -19,6 +19,7 @@
 						"referenceName": "AzureBlobStorageLS",
 						"type": "LinkedServiceReference"
 					},
+					"folderPath": "C:\\Users\\priyanka.gaikwad\\Desktop\\ADF",
 					"referenceObjects": {
 						"linkedServices": [],
 						"datasets": []
