@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "SimplifyDF"
+		},
+		"AzureBatchLS_accessKey": {
+			"value": ""
+		},
+		"AzureBlobStorageLS_connectionString": {
+			"value": ""
+		},
+		"SourceSqlServerLS_connectionString": {
+			"value": ""
+		},
+		"Target_SqlServerLS_connectionString": {
+			"value": ""
+		},
+		"AzureBatchLS_properties_typeProperties_batchUri": {
+			"value": "https://powershellbatchacc.eastus.batch.azure.com"
+		},
+		"AzureBatchLS_properties_typeProperties_poolName": {
+			"value": "mypool"
+		},
+		"AzureBatchLS_properties_typeProperties_accountName": {
+			"value": "powershellbatchacc"
+		},
+		"SelfHostedIR_properties_typeProperties_linkedInfo_resourceId": {
+			"value": "/subscriptions/22a805df-4191-445f-befe-b715f2eba430/resourcegroups/Priya/providers/Microsoft.DataFactory/factories/ADFDemobyPriya/integrationruntimes/SelfHostedIR"
+		}
+	}
+}

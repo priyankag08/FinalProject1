@@ -1,0 +1,98 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "SimplifyDF"
+		},
+		"AzureBatchLS_accessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessKey' of 'AzureBatchLS'"
+		},
+		"AzureBlobStorageLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageLS'"
+		},
+		"SourceSqlServerLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SourceSqlServerLS'"
+		},
+		"Target_SqlServerLS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Target_SqlServerLS'"
+		},
+		"AzureBatchLS_properties_typeProperties_batchUri": {
+			"type": "string",
+			"defaultValue": "https://powershellbatchacc.eastus.batch.azure.com"
+		},
+		"AzureBatchLS_properties_typeProperties_poolName": {
+			"type": "string",
+			"defaultValue": "mypool"
+		},
+		"AzureBatchLS_properties_typeProperties_accountName": {
+			"type": "string",
+			"defaultValue": "powershellbatchacc"
+		},
+		"SelfHostedIR_properties_typeProperties_linkedInfo_resourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/22a805df-4191-445f-befe-b715f2eba430/resourcegroups/Priya/providers/Microsoft.DataFactory/factories/ADFDemobyPriya/integrationruntimes/SelfHostedIR"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "SimplifyDF_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureBlobStorageLS_connectionString": {
+						"value": "[parameters('AzureBlobStorageLS_connectionString')]"
+					},
+					"SourceSqlServerLS_connectionString": {
+						"value": "[parameters('SourceSqlServerLS_connectionString')]"
+					},
+					"Target_SqlServerLS_connectionString": {
+						"value": "[parameters('Target_SqlServerLS_connectionString')]"
+					},
+					"AzureBatchLS_accessKey": {
+						"value": "[parameters('AzureBatchLS_accessKey')]"
+					},
+					"SelfHostedIR_properties_typeProperties_linkedInfo_resourceId": {
+						"value": "[parameters('SelfHostedIR_properties_typeProperties_linkedInfo_resourceId')]"
+					},
+					"AzureBatchLS_properties_typeProperties_batchUri": {
+						"value": "[parameters('AzureBatchLS_properties_typeProperties_batchUri')]"
+					},
+					"AzureBatchLS_properties_typeProperties_poolName": {
+						"value": "[parameters('AzureBatchLS_properties_typeProperties_poolName')]"
+					},
+					"AzureBatchLS_properties_typeProperties_accountName": {
+						"value": "[parameters('AzureBatchLS_properties_typeProperties_accountName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
