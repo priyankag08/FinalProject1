@@ -11,7 +11,7 @@
 					"url": "https://5dedcb6f-6d5b-44dc-9e5e-89f02e62a0c5.webhook.eus.azure-automation.net/webhooks?token=O3eodEaumBs3dgxLv1OKMog8jDr4%2fzXX8T7JDNS13Sg%3d",
 					"method": "POST",
 					"headers": {
-						"Content.Type": "application/json"
+						"Content-Type": "application/json"
 					},
 					"body": {
 						" ParmMsg ": "Hello World"
